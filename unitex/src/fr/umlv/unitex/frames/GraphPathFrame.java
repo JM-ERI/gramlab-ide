@@ -60,7 +60,7 @@ public class GraphPathFrame extends JInternalFrame {
                     }
             }
     };
-    
+       
     final ItemListener maxSeqListener = new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -105,7 +105,6 @@ public class GraphPathFrame extends JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         graphFileLabel = new javax.swing.JLabel();
@@ -116,9 +115,14 @@ public class GraphPathFrame extends JInternalFrame {
         optionSeparator = new javax.swing.JSeparator();
         optionLabel = new javax.swing.JLabel();
         outputsLabel = new javax.swing.JLabel();
-        ignoreOutputsButton = new javax.swing.JRadioButton();
+        ignoreOutputsButton = new javax.swing.JCheckBox();
         splitOutputsButton = new javax.swing.JRadioButton();
         mergeOutputsButton = new javax.swing.JRadioButton();
+        
+        mergeModeButton = new javax.swing.JRadioButton();
+        replaceModeButton = new javax.swing.JRadioButton();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        
         exploreLabel = new javax.swing.JLabel();
         exploreRecButton = new javax.swing.JRadioButton();
         exploreIndepButton = new javax.swing.JRadioButton();
@@ -127,6 +131,10 @@ public class GraphPathFrame extends JInternalFrame {
         flattenCheckbox = new javax.swing.JCheckBox();
         flattenOptionButton = new javax.swing.JButton();
         checkLoopsCheckbox = new javax.swing.JCheckBox();
+        setFileForDicGenerationButton = new javax.swing.JButton();
+        configFileLabel = new javax.swing.JLabel();
+        configFileName = new javax.swing.JTextField();
+        createDictionaryCheckbox = new javax.swing.JCheckBox();       
         resultLabel = new javax.swing.JLabel();
         helpButton = new javax.swing.JButton();
         runButton = new javax.swing.JButton();
@@ -166,16 +174,36 @@ public class GraphPathFrame extends JInternalFrame {
                 setFileButtonActionPerformed(evt);
             }
         });
+        
+        configFileLabel.setText("Config file:");
+        
+        configFileName.setText("");       
+        configFileName.setName(""); // NOI18N
+        configFileName.setEditable(false);
+        configFileName.setPreferredSize(new java.awt.Dimension(70, 25));
+        
+        setFileForDicGenerationButton.setEnabled(false);
+        setFileForDicGenerationButton.setText("Set File");
+        setFileForDicGenerationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setConfigFileButtonActionPerformed(evt);
+            }
+        });
 
         optionLabel.setText("Options");
 
         outputsLabel.setText("Outputs:");
 
-        buttonGroup1.add(ignoreOutputsButton);
-        ignoreOutputsButton.setSelected(true);
+        //ignoreOutputsButton.setSelected(true);
         ignoreOutputsButton.setText("Ignore");
+        ignoreOutputsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	ignoreOutputsCheckboxPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(splitOutputsButton);
+        splitOutputsButton.setSelected(true);
         splitOutputsButton.setText("Split inputs and outputs");
 
         buttonGroup1.add(mergeOutputsButton);
@@ -199,6 +227,12 @@ public class GraphPathFrame extends JInternalFrame {
                 exploreIndepButtonActionPerformed(evt);
             }
         });
+        
+        buttonGroup3.add(replaceModeButton);
+        replaceModeButton.setText("Replace mode");
+        buttonGroup3.add(mergeModeButton);
+        mergeModeButton.setSelected(true);
+        mergeModeButton.setText("Merge mode");
 
         maxSeqCheckbox.setText("Max sequences:");
         maxSeqCheckbox.addActionListener(new java.awt.event.ActionListener() {
@@ -216,7 +250,7 @@ public class GraphPathFrame extends JInternalFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 flattenCheckboxActionPerformed(evt);
             }
-        });
+        });      
 
         flattenOptionButton.setText("Options");
         flattenOptionButton.setEnabled(false);
@@ -230,6 +264,13 @@ public class GraphPathFrame extends JInternalFrame {
         checkLoopsCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkLoopsCheckboxActionPerformed(evt);
+            }
+        });
+        
+        createDictionaryCheckbox.setText("Generate dictionary");
+        createDictionaryCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	createDictionaryCheckboxPerformed(evt);
             }
         });
 
@@ -271,39 +312,52 @@ public class GraphPathFrame extends JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(graphFileLabel)
-                            .addComponent(outputFileLabel))
+                            .addComponent(outputFileLabel)
+                            .addComponent(configFileLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(outputFileName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(setFileButton))
-                            .addComponent(inputGraphName, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(inputGraphName, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(configFileName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(setFileForDicGenerationButton))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(outputsLabel)
                             .addComponent(exploreLabel)
-                            .addComponent(maxSeqCheckbox))
+                            .addComponent(maxSeqCheckbox)
+                            .addComponent(createDictionaryCheckbox))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ignoreOutputsButton)
                             .addComponent(exploreRecButton)
-                            .addComponent(maxSeqSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(maxSeqSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)                       
+                            )                     
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(exploreIndepButton)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(splitOutputsButton)
+                                    .addComponent(mergeOutputsButton)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(flattenCheckbox)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(flattenOptionButton)))
+                                        .addComponent(flattenOptionButton))
+                                    	//.addComponent(configFileName)
+                                    )
                                 .addGap(40, 40, 40)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkLoopsCheckbox)
-                                    .addComponent(mergeOutputsButton)))))
+                                		.addComponent(mergeModeButton)
+                                        .addComponent(replaceModeButton)
+                                		.addComponent(checkLoopsCheckbox)))))
+                                    
+                                    //.addComponent(mergeOutputsButton)))))
                     .addComponent(resultLabel)
                     .addComponent(resultSeparator)
                     .addGroup(layout.createSequentialGroup()
@@ -326,6 +380,11 @@ public class GraphPathFrame extends JInternalFrame {
                     .addComponent(outputFileLabel)
                     .addComponent(outputFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(setFileButton))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(configFileLabel)
+                    .addComponent(configFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(setFileForDicGenerationButton))
                 .addGap(16, 16, 16)
                 .addComponent(optionLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -335,7 +394,12 @@ public class GraphPathFrame extends JInternalFrame {
                     .addComponent(outputsLabel)
                     .addComponent(ignoreOutputsButton)
                     .addComponent(splitOutputsButton)
-                    .addComponent(mergeOutputsButton))
+                    .addComponent(mergeModeButton))
+                    //.addComponent(mergeOutputsButton))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(mergeOutputsButton)
+                        .addComponent(replaceModeButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(exploreLabel)
@@ -348,6 +412,11 @@ public class GraphPathFrame extends JInternalFrame {
                     .addComponent(flattenCheckbox)
                     .addComponent(flattenOptionButton)
                     .addComponent(checkLoopsCheckbox))
+                    //ADD
+                 .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createDictionaryCheckbox))
+                    
                 .addGap(18, 18, 18)
                 .addComponent(resultLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -383,6 +452,43 @@ public class GraphPathFrame extends JInternalFrame {
 
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_helpButtonActionPerformed
+    
+    private void createDictionaryCheckboxPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+    	if (createDictionaryCheckbox.isSelected() ) {
+            ignoreOutputsButton.setEnabled(false);
+            mergeOutputsButton.setEnabled(false);
+            replaceModeButton.setEnabled(false);
+            mergeModeButton.setEnabled(false);
+            
+            splitOutputsButton.setSelected(true);
+            mergeOutputsButton.setSelected(false);
+
+            setFileForDicGenerationButton.setEnabled(true);
+            configFileName.setEditable(true);
+    	} else {
+    		ignoreOutputsButton.setEnabled(true);
+    		mergeOutputsButton.setEnabled(true);
+    		replaceModeButton.setEnabled(true);
+            mergeModeButton.setEnabled(true);
+            
+    		setFileForDicGenerationButton.setEnabled(false);
+    		configFileName.setEditable(false);
+    	}
+    }//GEN-LAST:event_helpButtonActionPerformed
+    
+    private void ignoreOutputsCheckboxPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+    	if (ignoreOutputsButton.isSelected() ) {
+            mergeOutputsButton.setEnabled(false);
+            splitOutputsButton.setEnabled(false);
+            replaceModeButton.setEnabled(false);
+            mergeModeButton.setEnabled(false);           
+    	} else {
+    		mergeOutputsButton.setEnabled(true);
+            splitOutputsButton.setEnabled(true);
+            replaceModeButton.setEnabled(true);
+            mergeModeButton.setEnabled(true);          
+    	}
     }//GEN-LAST:event_helpButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -426,6 +532,16 @@ public class GraphPathFrame extends JInternalFrame {
         if ( !checkLoopsCheckbox.isSelected() ) {
                 cmd = cmd.noLoopCheck();
         }
+        if ( mergeModeButton.isSelected() && !createDictionaryCheckbox.isSelected() && !ignoreOutputsButton.isSelected()) {
+            cmd = cmd.mergeMode();
+        }
+        if ( replaceModeButton.isSelected() && !createDictionaryCheckbox.isSelected() && !ignoreOutputsButton.isSelected()) {
+            cmd = cmd.replaceMode();
+        }
+        if ( createDictionaryCheckbox.isSelected() ) {
+        		File configFile = new File(configFileName.getText());
+            	cmd = cmd.generateDictionary(configFile);
+        }        
         if (ignoreOutputsButton.isSelected()) {
                 cmd = cmd.ignoreOutputs();
         } else {
@@ -496,6 +612,10 @@ public class GraphPathFrame extends JInternalFrame {
 
     private void setFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setFileButtonActionPerformed
         openOutputFile();
+    }//GEN-LAST:event_setFileButtonActionPerformed
+    
+    private void setConfigFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setFileButtonActionPerformed
+        openConfigFile();
     }//GEN-LAST:event_setFileButtonActionPerformed
 
     /**
@@ -594,10 +714,28 @@ public class GraphPathFrame extends JInternalFrame {
         outputFileName.setText(name);
     }
     
+    private void openConfigFile() {
+        final int returnVal = Config.getExploreGraphOutputDialogBox().showOpenDialog(this);
+        if (returnVal != JFileChooser.APPROVE_OPTION) {
+                // we return if the user has clicked on CANCEL
+                return;
+        }
+        final String name;
+        try {
+                name = Config.getExploreGraphOutputDialogBox().getSelectedFile()
+                                .getCanonicalPath();
+        } catch (final IOException e) {
+                return;
+        }
+        configFileName.setText(name);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox createDictionaryCheckbox;    
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JButton cancelButton;
     private javax.swing.JCheckBox checkLoopsCheckbox;
     private javax.swing.JRadioButton exploreIndepButton;
@@ -607,7 +745,8 @@ public class GraphPathFrame extends JInternalFrame {
     private javax.swing.JButton flattenOptionButton;
     private javax.swing.JLabel graphFileLabel;
     private javax.swing.JButton helpButton;
-    private javax.swing.JRadioButton ignoreOutputsButton;
+    private javax.swing.JButton setFileForDicGenerationButton;
+    private javax.swing.JCheckBox ignoreOutputsButton;
     private javax.swing.JTextField inputGraphName;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JCheckBox maxSeqCheckbox;
@@ -618,11 +757,16 @@ public class GraphPathFrame extends JInternalFrame {
     private fr.umlv.unitex.text.BigTextList outputArea;
     private javax.swing.JLabel outputFileLabel;
     private javax.swing.JTextField outputFileName;
+    private javax.swing.JLabel configFileLabel;
+    private javax.swing.JTextField configFileName;
     private javax.swing.JLabel outputsLabel;
     private javax.swing.JLabel resultLabel;
     private javax.swing.JSeparator resultSeparator;
     private javax.swing.JButton runButton;
     private javax.swing.JButton setFileButton;
     private javax.swing.JRadioButton splitOutputsButton;
+    private javax.swing.JRadioButton mergeModeButton;
+    private javax.swing.JRadioButton replaceModeButton;
+    
     // End of variables declaration//GEN-END:variables
 }

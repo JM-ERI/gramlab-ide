@@ -50,6 +50,22 @@ public class Fst2ListCommand extends CommandBuilder {
 		element("-d");
 		return this;
 	}
+	
+	public Fst2ListCommand generateDictionary(File configFile) {
+		element("-b");
+		protectElement(configFile.getAbsolutePath());
+		return this;
+	}
+	
+	public Fst2ListCommand mergeMode() {
+		element("-y");
+		return this;
+	}
+	
+	public Fst2ListCommand replaceMode() {
+		element("-z");
+		return this;
+	}
 
 	public Fst2ListCommand mode(String s) { // multi or single
 		element("-t");
