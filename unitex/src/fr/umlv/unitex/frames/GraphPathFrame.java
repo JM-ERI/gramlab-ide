@@ -37,6 +37,7 @@ import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
 import fr.umlv.unitex.config.Config;
+import fr.umlv.unitex.config.ConfigManager;
 import fr.umlv.unitex.files.FileUtil;
 import fr.umlv.unitex.process.Launcher;
 import fr.umlv.unitex.process.ToDo;
@@ -287,10 +288,14 @@ public class GraphPathFrame extends JInternalFrame {
             }
         });
 
+        
         runButton.setText("Run");
+        
         runButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-				runButtonActionPerformed(evt);
+            	System.out.println("name1 " + inputGraphName.getText());
+            	runButtonActionPerformed(evt);
+				
             }
         });
 
@@ -353,15 +358,12 @@ public class GraphPathFrame extends JInternalFrame {
                                         .addComponent(flattenCheckbox)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(flattenOptionButton))
-                                    	//.addComponent(configFileName)
                                     )
                                 .addGap(40, 40, 40)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 		.addComponent(mergeModeButton)
                                         .addComponent(replaceModeButton)
-                                		.addComponent(checkLoopsCheckbox)))))
-                                    
-                                    //.addComponent(mergeOutputsButton)))))
+                                		.addComponent(checkLoopsCheckbox)))))                                    
                     .addComponent(resultLabel)
                     .addComponent(resultSeparator)
                     .addGroup(layout.createSequentialGroup()
@@ -399,7 +401,6 @@ public class GraphPathFrame extends JInternalFrame {
                     .addComponent(ignoreOutputsButton)
                     .addComponent(splitOutputsButton)
                     .addComponent(mergeModeButton))
-                    //.addComponent(mergeOutputsButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(mergeOutputsButton)
@@ -416,7 +417,6 @@ public class GraphPathFrame extends JInternalFrame {
                     .addComponent(flattenCheckbox)
                     .addComponent(flattenOptionButton)
                     .addComponent(checkLoopsCheckbox))
-                    //ADD
                  .addGap(18, 18, 18)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createDictionaryCheckbox))
@@ -434,7 +434,7 @@ public class GraphPathFrame extends JInternalFrame {
                     .addComponent(runButton))
                 .addContainerGap())
         );
-
+        
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -448,7 +448,7 @@ public class GraphPathFrame extends JInternalFrame {
 
     private void flattenCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flattenCheckboxActionPerformed
         if ( flattenCheckbox.isSelected() ) {
-                            flattenOptionButton.setEnabled(true);
+                flattenOptionButton.setEnabled(true);
         } else {
                 flattenOptionButton.setEnabled(false);
         }
@@ -572,12 +572,7 @@ public class GraphPathFrame extends JInternalFrame {
         }
         else {
                 Launcher.exec(preprocessCommands, false);
-        }
-        
-        
-        /*System.out.println("name : " + inputGraphName.getText());
-        ConfigurationFileAnalyser analyser = new ConfigurationFileAnalyser("\"" + inputGraphName.getText() + "\"" + " R");
-        */
+        }        
         
         fst2 = new File(FileUtil.getFileNameWithoutExtension(inputGraphName
                         .getText()) + ".fst2");
