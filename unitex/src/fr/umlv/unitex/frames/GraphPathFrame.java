@@ -293,7 +293,6 @@ public class GraphPathFrame extends JInternalFrame {
         
         runButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	System.out.println("name1 " + inputGraphName.getText());
             	runButtonActionPerformed(evt);
 				
             }
@@ -520,6 +519,7 @@ public class GraphPathFrame extends JInternalFrame {
         File fst2;
         File list; /* output file name */
         int n;
+        cmd = cmd.morphologicalDic(ConfigManager.getManager().morphologicalDictionaries(null));
         if (maxSeqCheckbox.isSelected()) {
                 try {
                     maxSeqSpinner.commitEdit();
