@@ -21,6 +21,7 @@
 package fr.umlv.unitex.process.commands;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * @author Sébastien Paumier
