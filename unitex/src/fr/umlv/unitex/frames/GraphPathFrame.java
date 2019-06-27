@@ -134,6 +134,7 @@ public class GraphPathFrame extends JInternalFrame {
         resultSeparator = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         outputArea = new fr.umlv.unitex.text.BigTextList();
+        makeDicCheckBox = new javax.swing.JCheckBox();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -232,6 +233,13 @@ public class GraphPathFrame extends JInternalFrame {
                 checkLoopsCheckboxActionPerformed(evt);
             }
         });
+        
+        makeDicCheckBox.setText("Make dictionary");
+        makeDicCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                makeDicCheckboxActionPerformed(evt);
+            }
+        });
 
         resultLabel.setText("Results");
 
@@ -284,7 +292,8 @@ public class GraphPathFrame extends JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(outputsLabel)
                             .addComponent(exploreLabel)
-                            .addComponent(maxSeqCheckbox))
+                            .addComponent(maxSeqCheckbox)
+                        	.addComponent(makeDicCheckBox))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ignoreOutputsButton)
@@ -349,6 +358,8 @@ public class GraphPathFrame extends JInternalFrame {
                     .addComponent(flattenOptionButton)
                     .addComponent(checkLoopsCheckbox))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                		.addComponent(makeDicCheckBox))
                 .addComponent(resultLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(resultSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -397,6 +408,19 @@ public class GraphPathFrame extends JInternalFrame {
     private void inputGraphNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputGraphNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputGraphNameActionPerformed
+    
+    private void makeDicCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputGraphNameActionPerformed
+        if(makeDicCheckBox.isSelected()) {
+        	splitOutputsButton.setEnabled(false);
+        	mergeOutputsButton.setEnabled(false);
+        	ignoreOutputsButton.setEnabled(false);
+        }
+        else {
+        	splitOutputsButton.setEnabled(true);
+        	mergeOutputsButton.setEnabled(true);
+        	ignoreOutputsButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_inputGraphNameActionPerformed
 
     private void exploreIndepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exploreIndepButtonActionPerformed
         outputFileName.setText(FileUtil.getFileNameWithoutExtension(inputGraphName
@@ -422,6 +446,9 @@ public class GraphPathFrame extends JInternalFrame {
                 cmd = cmd.limit(n);
         } else {
                 cmd = cmd.noLimit();
+        }
+        if(makeDicCheckBox.isSelected()) {
+        	cmd = cmd.makeDic();
         }
         if ( !checkLoopsCheckbox.isSelected() ) {
                 cmd = cmd.noLoopCheck();
@@ -624,5 +651,6 @@ public class GraphPathFrame extends JInternalFrame {
     private javax.swing.JButton runButton;
     private javax.swing.JButton setFileButton;
     private javax.swing.JRadioButton splitOutputsButton;
+    private javax.swing.JCheckBox makeDicCheckBox;
     // End of variables declaration//GEN-END:variables
 }

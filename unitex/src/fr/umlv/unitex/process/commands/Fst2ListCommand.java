@@ -41,6 +41,11 @@ public class Fst2ListCommand extends CommandBuilder {
 		element("" + n);
 		return this;
 	}
+	
+	public Fst2ListCommand makeDic() {
+		element("-D");
+		return this;
+	}
 
 	public Fst2ListCommand noLimit() {
 		return this;
