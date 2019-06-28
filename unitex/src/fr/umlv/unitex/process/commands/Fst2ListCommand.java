@@ -46,6 +46,16 @@ public class Fst2ListCommand extends CommandBuilder {
 		element("-D");
 		return this;
 	}
+	
+	public Fst2ListCommand mergeMode() {
+		element("-M");
+		return this;
+	}
+	
+	public Fst2ListCommand replaceMode() {
+		element("-R");
+		return this;
+	}
 
 	public Fst2ListCommand noLimit() {
 		return this;

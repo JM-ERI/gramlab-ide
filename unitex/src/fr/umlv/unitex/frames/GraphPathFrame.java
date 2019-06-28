@@ -40,7 +40,6 @@ import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
@@ -117,8 +116,8 @@ public class GraphPathFrame extends JInternalFrame {
         optionLabel = new javax.swing.JLabel();
         outputsLabel = new javax.swing.JLabel();
         ignoreOutputsButton = new javax.swing.JRadioButton();
-        splitOutputsButton = new javax.swing.JRadioButton();
-        mergeOutputsButton = new javax.swing.JRadioButton();
+        seperateOutputsButton = new javax.swing.JRadioButton();
+        alternateOutputsButton = new javax.swing.JRadioButton();
         exploreLabel = new javax.swing.JLabel();
         exploreRecButton = new javax.swing.JRadioButton();
         exploreIndepButton = new javax.swing.JRadioButton();
@@ -176,11 +175,11 @@ public class GraphPathFrame extends JInternalFrame {
         ignoreOutputsButton.setSelected(true);
         ignoreOutputsButton.setText("Ignore");
 
-        buttonGroup1.add(splitOutputsButton);
-        splitOutputsButton.setText("Split inputs and outputs");
+        buttonGroup1.add(seperateOutputsButton);
+        seperateOutputsButton.setText("Seperate inputs and outputs");
 
-        buttonGroup1.add(mergeOutputsButton);
-        mergeOutputsButton.setText("Merge inputs and outputs");
+        buttonGroup1.add(alternateOutputsButton);
+        alternateOutputsButton.setText("Alternate inputs and outputs");
 
         exploreLabel.setText("Explore subraphs:");
 
@@ -304,7 +303,7 @@ public class GraphPathFrame extends JInternalFrame {
                             .addComponent(exploreIndepButton)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(splitOutputsButton)
+                                    .addComponent(seperateOutputsButton)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(flattenCheckbox)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -312,7 +311,7 @@ public class GraphPathFrame extends JInternalFrame {
                                 .addGap(40, 40, 40)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(checkLoopsCheckbox)
-                                    .addComponent(mergeOutputsButton)))))
+                                    .addComponent(alternateOutputsButton)))))
                     .addComponent(resultLabel)
                     .addComponent(resultSeparator)
                     .addGroup(layout.createSequentialGroup()
@@ -343,8 +342,8 @@ public class GraphPathFrame extends JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(outputsLabel)
                     .addComponent(ignoreOutputsButton)
-                    .addComponent(splitOutputsButton)
-                    .addComponent(mergeOutputsButton))
+                    .addComponent(seperateOutputsButton)
+                    .addComponent(alternateOutputsButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(exploreLabel)
@@ -411,13 +410,14 @@ public class GraphPathFrame extends JInternalFrame {
     
     private void makeDicCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputGraphNameActionPerformed
         if(makeDicCheckBox.isSelected()) {
-        	splitOutputsButton.setEnabled(false);
-        	mergeOutputsButton.setEnabled(false);
+        	seperateOutputsButton.setEnabled(false);
+        	alternateOutputsButton.setEnabled(false);
         	ignoreOutputsButton.setEnabled(false);
+        	alternateOutputsButton.setSelected(true);
         }
         else {
-        	splitOutputsButton.setEnabled(true);
-        	mergeOutputsButton.setEnabled(true);
+        	seperateOutputsButton.setEnabled(true);
+        	alternateOutputsButton.setEnabled(true);
         	ignoreOutputsButton.setEnabled(true);
         }
     }//GEN-LAST:event_inputGraphNameActionPerformed
@@ -449,6 +449,14 @@ public class GraphPathFrame extends JInternalFrame {
         }
         if(makeDicCheckBox.isSelected()) {
         	cmd = cmd.makeDic();
+        	String suffixe = inputGraphName.getText().substring(inputGraphName.getText().length() - 6, inputGraphName.getText().length() - 4);
+        	System.out.println("name : " + inputGraphName.getText() + " index : " + (inputGraphName.getText().length() - 2) + " suff : " + suffixe);
+        	if(suffixe.equals("-r") || suffixe.equals("-R")) {
+        		cmd = cmd.replaceMode();
+        	}
+        	else {
+        		cmd = cmd.mergeMode();
+        	}
         }
         if ( !checkLoopsCheckbox.isSelected() ) {
                 cmd = cmd.noLoopCheck();
@@ -456,7 +464,7 @@ public class GraphPathFrame extends JInternalFrame {
         if (ignoreOutputsButton.isSelected()) {
                 cmd = cmd.ignoreOutputs();
         } else {
-                cmd = cmd.separateOutputs(splitOutputsButton.isSelected());
+                cmd = cmd.separateOutputs(seperateOutputsButton.isSelected());
         }
         // check if flatten was checked or not
         if( !flattenCheckbox.isSelected() ) {
@@ -639,7 +647,7 @@ public class GraphPathFrame extends JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JCheckBox maxSeqCheckbox;
     private javax.swing.JSpinner maxSeqSpinner;
-    private javax.swing.JRadioButton mergeOutputsButton;
+    private javax.swing.JRadioButton alternateOutputsButton;
     private javax.swing.JLabel optionLabel;
     private javax.swing.JSeparator optionSeparator;
     private fr.umlv.unitex.text.BigTextList outputArea;
@@ -650,7 +658,7 @@ public class GraphPathFrame extends JInternalFrame {
     private javax.swing.JSeparator resultSeparator;
     private javax.swing.JButton runButton;
     private javax.swing.JButton setFileButton;
-    private javax.swing.JRadioButton splitOutputsButton;
+    private javax.swing.JRadioButton seperateOutputsButton;
     private javax.swing.JCheckBox makeDicCheckBox;
     // End of variables declaration//GEN-END:variables
 }
