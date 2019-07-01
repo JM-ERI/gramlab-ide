@@ -400,8 +400,14 @@ public class GraphPathFrame extends JInternalFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void exploreRecButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exploreRecButtonActionPerformed
-        outputFileName.setText(FileUtil.getFileNameWithoutExtension(inputGraphName
-                            .getText()) + "-recursive-paths.txt");
+        if(!makeDicCheckBox.isSelected()) {
+            outputFileName.setText(FileUtil.getFileNameWithoutExtension(inputGraphName
+                          .getText()) + "-recursive-paths.txt");
+        }
+        else {
+            outputFileName.setText(FileUtil.getFileNameWithoutExtension(inputGraphName
+                          .getText()) + "-recursive-paths.dic");
+        }
     }//GEN-LAST:event_exploreRecButtonActionPerformed
 
     private void inputGraphNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputGraphNameActionPerformed
@@ -414,17 +420,39 @@ public class GraphPathFrame extends JInternalFrame {
         	alternateOutputsButton.setEnabled(false);
         	ignoreOutputsButton.setEnabled(false);
         	alternateOutputsButton.setSelected(true);
+            if(exploreRecButton.isSelected()) {
+                outputFileName.setText(FileUtil.getFileNameWithoutExtension(inputGraphName
+                        .getText()) + "-recursive-paths.dic");
+            }
+            else {
+                outputFileName.setText(FileUtil.getFileNameWithoutExtension(inputGraphName
+                        .getText()) + "-paths.dic");
+            }
         }
         else {
         	seperateOutputsButton.setEnabled(true);
         	alternateOutputsButton.setEnabled(true);
         	ignoreOutputsButton.setEnabled(true);
+            if(exploreRecButton.isSelected()) {
+                outputFileName.setText(FileUtil.getFileNameWithoutExtension(inputGraphName
+                        .getText()) + "-recursive-paths.txt");
+            }
+            else {
+                outputFileName.setText(FileUtil.getFileNameWithoutExtension(inputGraphName
+                        .getText()) + "-paths.txt");
+            }
         }
     }//GEN-LAST:event_inputGraphNameActionPerformed
 
     private void exploreIndepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exploreIndepButtonActionPerformed
-        outputFileName.setText(FileUtil.getFileNameWithoutExtension(inputGraphName
-						.getText()) + "-paths.txt");
+        if(!makeDicCheckBox.isSelected()) {
+            outputFileName.setText(FileUtil.getFileNameWithoutExtension(inputGraphName
+                    .getText()) + "-paths.txt");
+        }
+        else {
+            outputFileName.setText(FileUtil.getFileNameWithoutExtension(inputGraphName
+                    .getText()) + "-paths.dic");
+        }
     }//GEN-LAST:event_exploreIndepButtonActionPerformed
 
     private void runButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runButtonActionPerformed
