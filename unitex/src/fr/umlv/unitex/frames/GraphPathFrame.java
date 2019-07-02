@@ -419,7 +419,6 @@ public class GraphPathFrame extends JInternalFrame {
         	seperateOutputsButton.setEnabled(false);
         	alternateOutputsButton.setEnabled(false);
         	ignoreOutputsButton.setEnabled(false);
-        	alternateOutputsButton.setSelected(true);
             if(exploreRecButton.isSelected()) {
                 outputFileName.setText(FileUtil.getFileNameWithoutExtension(inputGraphName
                         .getText()) + "-recursive-paths.dic");
@@ -477,22 +476,25 @@ public class GraphPathFrame extends JInternalFrame {
         }
         if(makeDicCheckBox.isSelected()) {
         	cmd = cmd.makeDic();
-        	String suffixe = inputGraphName.getText().substring(inputGraphName.getText().length() - 6, inputGraphName.getText().length() - 4);
-        	System.out.println("name : " + inputGraphName.getText() + " index : " + (inputGraphName.getText().length() - 2) + " suff : " + suffixe);
+            String suffixe = inputGraphName.getText().substring(inputGraphName.getText().length() - 6, inputGraphName.getText().length() - 4);
         	if(suffixe.equals("-r") || suffixe.equals("-R")) {
+                cmd.separateOutputs(true);
         		cmd = cmd.replaceMode();
         	}
         	else {
+                cmd.separateOutputs(false);
         		cmd = cmd.mergeMode();
         	}
         }
-        if ( !checkLoopsCheckbox.isSelected() ) {
-                cmd = cmd.noLoopCheck();
-        }
-        if (ignoreOutputsButton.isSelected()) {
+        else {
+            if (ignoreOutputsButton.isSelected()) {
                 cmd = cmd.ignoreOutputs();
-        } else {
+            } else {
                 cmd = cmd.separateOutputs(seperateOutputsButton.isSelected());
+            }
+        }
+        if ( !checkLoopsCheckbox.isSelected() ) {
+            cmd = cmd.noLoopCheck();
         }
         // check if flatten was checked or not
         if( !flattenCheckbox.isSelected() ) {
