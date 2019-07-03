@@ -22,6 +22,8 @@ package fr.umlv.unitex.process.commands;
 
 import java.io.File;
 
+import fr.umlv.unitex.files.FileUtil;
+
 /**
  * @author Sébastien Paumier
  * 
@@ -44,16 +46,10 @@ public class Fst2ListCommand extends CommandBuilder {
 	
 	public Fst2ListCommand makeDic() {
 		element("-D");
-		return this;
-	}
-	
-	public Fst2ListCommand mergeMode() {
-		element("-M");
-		return this;
-	}
-	
-	public Fst2ListCommand replaceMode() {
-		element("-R");
+		element("-t");
+		element("s");
+		element("-s0");
+		protectElement("/");
 		return this;
 	}
 

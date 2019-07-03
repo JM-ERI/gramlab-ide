@@ -476,22 +476,13 @@ public class GraphPathFrame extends JInternalFrame {
         }
         if(makeDicCheckBox.isSelected()) {
         	cmd = cmd.makeDic();
-            String suffixe = inputGraphName.getText().substring(inputGraphName.getText().length() - 6, inputGraphName.getText().length() - 4);
-        	if(suffixe.equals("-r") || suffixe.equals("-R")) {
-                cmd.separateOutputs(true);
-        		cmd = cmd.replaceMode();
-        	}
-        	else {
-                cmd.separateOutputs(false);
-        		cmd = cmd.mergeMode();
-        	}
         }
         else {
-            if (ignoreOutputsButton.isSelected()) {
-                cmd = cmd.ignoreOutputs();
-            } else {
-                cmd = cmd.separateOutputs(seperateOutputsButton.isSelected());
-            }
+	        if (ignoreOutputsButton.isSelected()) {
+	            cmd = cmd.ignoreOutputs();
+	        } else {
+	            cmd = cmd.separateOutputs(seperateOutputsButton.isSelected());
+	        }
         }
         if ( !checkLoopsCheckbox.isSelected() ) {
             cmd = cmd.noLoopCheck();
