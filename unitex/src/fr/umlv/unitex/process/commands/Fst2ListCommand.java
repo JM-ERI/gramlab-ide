@@ -48,6 +48,8 @@ public class Fst2ListCommand extends CommandBuilder {
 		element("-D");
 		element("-t");
 		element("s");
+		element("-s0");
+		protectElement("/");
 		return this;
 	}
 
