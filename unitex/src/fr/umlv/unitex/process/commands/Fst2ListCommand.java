@@ -23,6 +23,8 @@ package fr.umlv.unitex.process.commands;
 import java.io.File;
 import java.util.ArrayList;
 
+import fr.umlv.unitex.files.FileUtil;
+
 /**
  * @author Sébastien Paumier
  * 
@@ -48,7 +50,14 @@ public class Fst2ListCommand extends CommandBuilder {
 			for (final File f : dicList) {
 				protectElement("-D" + f.getAbsolutePath());
 			}
-		}
+		}	
+		return this;
+	}
+	
+	public Fst2ListCommand makeDic() {
+		element("-P");
+		element("-t");
+		element("s");
 		return this;
 	}
 
