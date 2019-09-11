@@ -48,7 +48,8 @@ public class Fst2ListCommand extends CommandBuilder {
     public Fst2ListCommand morphologicalDic(ArrayList<File> dicList) {
 		if (dicList != null && !dicList.isEmpty()) {
 			for (final File f : dicList) {
-				protectElement("-D" + f.getAbsolutePath());
+				element("-D");
+				protectElement(f.getAbsolutePath());
 			}
 		}	
 		return this;
